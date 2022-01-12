@@ -4,7 +4,7 @@
 
 // Import readline module for getting input from console
 // Find more here: https://nodejs.org/api/readline.html#readline_readline
-inconst readline_1 = require('readline');
+const readline_1 = require('readline');
 // define question/output interface
 const rl = readline_1.createInterface({
   // readable stream
@@ -28,9 +28,13 @@ const menuQ = () => {
 };
 let milkQ = () => {
   return new Promise((resolve, reject) => {
-    rl.question('How many cups of milk to add? ', (answer) => {
-      resolve(answer);
-    });
+    try {
+      rl.question('How many cups of milk to add? ', (answer) => {
+        resolve(answer);
+      });
+    } catch (error) {
+      reject();
+    }
   });
 };
 
@@ -53,16 +57,24 @@ const userOptions = async (mochaObject) => {
 
 const espressoQ = () => {
   return new Promise((resolve, reject) => {
-    rl.question('How many shots of espresso to add? ', (answer) => {
-      resolve(answer);
-    });
+    try {
+      rl.question('How many shots of espresso to add? ', (answer) => {
+        resolve(answer);
+      });
+    } catch (error) {
+      reject();
+    }
   });
 };
 const peppermintQ = () => {
   return new Promise((resolve, reject) => {
-    rl.question('How many shots of peppermint to add? ', (answer) => {
-      resolve(answer);
-    });
+    try {
+      rl.question('How many shots of peppermint to add? ', (answer) => {
+        resolve(answer);
+      });
+    } catch (error) {
+      reject();
+    }
   });
 };
 // Create parent class Mocha
@@ -121,19 +133,21 @@ const main = () => {
         case 0: {
           break;
         }
-        case 1:
-          let whiteMochaVar = 0;
+        case 1: {
           const whiteMocha = new WhiteChocolateMocha();
           await userOptions(whiteMocha);
           break;
-        case 2:
+        }
+        case 2: {
           const darkMocha = new DarkChocolateMocha();
           await userOptions(darkMocha);
           break;
-        case 3:
+        }
+        case 3: {
           const peppermintMocha = new PeppermintMocha();
           await userOptions(peppermintMocha);
           break;
+        }
         default: {
           console.log('Option invalid, please choose from menu.');
           break;
